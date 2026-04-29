@@ -1,0 +1,42 @@
+{
+  "_comment": "Merge these hook entries into your existing .claude/settings.json or .claude/settings.local.json. If you already have hooks for SessionStart/PreCompact/Stop, just append to the existing 'hooks: [...]' arrays.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/journal-context.js",
+            "timeout": 5,
+            "statusMessage": "Loading journal context..."
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/journal-precompact.js",
+            "timeout": 5,
+            "statusMessage": "Journal reminder..."
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/journal-reminder.js",
+            "timeout": 5,
+            "statusMessage": "Journal reminder..."
+          }
+        ]
+      }
+    ]
+  }
+}
